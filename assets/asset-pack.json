@@ -1,0 +1,69 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/background/background1.png",
+                "type": "image",
+                "key": "background1"
+            },
+            {
+                "url": "assets/background/background2.png",
+                "type": "image",
+                "key": "background2"
+            },
+            {
+                "url": "assets/background/background3.png",
+                "type": "image",
+                "key": "background3"
+            },
+            {
+                "url": "assets/background/background4.png",
+                "type": "image",
+                "key": "background4"
+            },
+            {
+                "url": "assets/other/ground.png",
+                "type": "image",
+                "key": "ground"
+            },
+            {
+                "url": "assets/other/platform.png",
+                "type": "image",
+                "key": "platform"
+            },
+            {
+                "url": "assets/player/player.png",
+                "frameConfig": {
+                    "frameWidth": 50,
+                    "frameHeight": 37,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "player"
+            },
+            {
+                "url": "assets/font/PressStart2P-Regular.ttf",
+                "format": "truetype",
+                "descriptors": {},
+                "type": "font",
+                "key": "PressStart2P-Regular"
+            },
+            {
+                "url": "assets/other/wall.png",
+                "type": "image",
+                "key": "wall"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false,
+        "visible": true
+    }
+}
