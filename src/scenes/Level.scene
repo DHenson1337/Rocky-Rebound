@@ -16,9 +16,43 @@
             "prefabId": "88d990a0-a656-4bd4-830c-6909af4b07f1",
             "id": "74c4b36a-7c6c-4add-8254-7aac2a408cf8",
             "label": "platformGroupPrefab"
+        },
+        {
+            "prefabId": "9c5e279c-70cc-4630-a7f3-b7db77e49918",
+            "id": "cd4207bc-86aa-441b-a1d5-bffb5c0314d3",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "player",
+            "displayName": "Player",
+            "scope": "CLASS",
+            "x": 280,
+            "y": 273
         }
     ],
-    "plainObjects": [],
+    "plainObjects": [
+        {
+            "id": "d8138790-6dc5-4e6f-8560-1a649516fb24",
+            "type": "Collider",
+            "label": "playerWithPlatformsCollider",
+            "scope": "LOCAL",
+            "object1": "player",
+            "object2": "platformGroupPrefab.group"
+        },
+        {
+            "id": "166d1a13-f924-42ef-87af-92e8062f7d8d",
+            "type": "Keyboard.Key",
+            "label": "leftKeyboard_key",
+            "keyCode": "LEFT"
+        },
+        {
+            "id": "9bd50743-48fc-4203-a70c-82fed2c93e92",
+            "type": "Keyboard.Key",
+            "label": "rightKeyboard_key",
+            "keyCode": "RIGHT"
+        }
+    ],
     "meta": {
         "app": "Phaser Editor - Scene Editor",
         "url": "https://phaser.io/editor",

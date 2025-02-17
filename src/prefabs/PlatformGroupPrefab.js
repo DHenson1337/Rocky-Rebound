@@ -24,14 +24,11 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
 
     //Platform base settings
     const BASE_Y = 450;
-    const PLATFORM_GAP = 120;
+    const PLATFORM_GAP = 350;
     const PLATFORM_COUNT = 5;
 
     //Create base platform
-    this.group.get(240, BASE_Y);
-
-    //Position of game object
-    this.group.get(240, 450);
+    this.group.get(270, BASE_Y);
 
     //Loop for amount of platforms to be randomy generated and location
     for (let i = 1; i < PLATFORM_COUNT; i += 1) {

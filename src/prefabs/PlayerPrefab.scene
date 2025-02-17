@@ -1,5 +1,5 @@
 {
-    "id": "a26379ec-8848-4749-bfbc-78b74dd9e11d",
+    "id": "9c5e279c-70cc-4630-a7f3-b7db77e49918",
     "sceneType": "PREFAB",
     "settings": {
         "exportClass": true,
@@ -8,25 +8,25 @@
         "preloadMethodName": "",
         "preloadPackFiles": [],
         "createMethodName": "",
-        "borderWidth": 1280,
-        "borderHeight": 720
+        "borderWidth": 640,
+        "borderHeight": 480
     },
     "displayList": [
         {
-            "type": "ArcadeImage",
-            "id": "3f7c18c6-7aec-49ac-a1b1-e26c9f1cc6ea",
-            "label": "arcadeimage_1",
+            "type": "ArcadeSprite",
+            "id": "9e92bb00-6e05-40c7-90d4-cc399eadd579",
+            "label": "arcadesprite_1",
             "texture": {
-                "key": "platform"
+                "key": "player",
+                "frame": 0
             },
-            "scaleY": 0.3,
-            "allowGravity": false,
-            "down": false,
-            "left": false,
-            "right": false,
-            "pushable": false,
-            "body.width": 144,
-            "body.height": 48
+            "scaleX": 2.2,
+            "scaleY": 2.2,
+            "up": false,
+            "body.width": 14,
+            "body.height": 30,
+            "body.offset.x": 18,
+            "body.offset.y": 6
         }
     ],
     "plainObjects": [],

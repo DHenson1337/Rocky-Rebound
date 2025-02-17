@@ -6,19 +6,17 @@
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
 
-export default class PlatformPrefab extends Phaser.Physics.Arcade.Image {
+export default class PlayerPrefab extends Phaser.Physics.Arcade.Sprite {
 
 	constructor(scene, x, y, texture, frame) {
-		super(scene, x ?? 0, y ?? 0, texture || "platform", frame);
+		super(scene, x ?? 0, y ?? 0, texture || "player", frame ?? 0);
 
-		this.scaleY = 0.3;
+		this.scaleX = 2.2;
+		this.scaleY = 2.2;
 		scene.physics.add.existing(this, false);
-		this.body.allowGravity = false;
-		this.body.checkCollision.down = false;
-		this.body.checkCollision.left = false;
-		this.body.checkCollision.right = false;
-		this.body.pushable = false;
-		this.body.setSize(144, 48, false);
+		this.body.checkCollision.up = false;
+		this.body.setOffset(18, 6);
+		this.body.setSize(14, 30, false);
 
 		/* START-USER-CTR-CODE */
 		// Write your code here.
