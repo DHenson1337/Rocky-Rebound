@@ -26,23 +26,52 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
     const BASE_Y = 450;
     const PLATFORM_GAP = 350;
     const PLATFORM_COUNT = 5;
+    const X1 = 125;
+    const X2 = 550;
 
     //Create base platform
     this.group.get(320, BASE_Y);
 
     //Loop for amount of platforms to be randomy generated and location
     for (let i = 1; i < PLATFORM_COUNT; i += 1) {
-      const x = Phaser.Math.Between(125, 550); //x value for random spawned platforms
+      const x = Phaser.Math.Between(X1, X2); //x value for random spawned platforms
       const y = BASE_Y - PLATFORM_GAP * i; //Subtract gap for each platform
       this.group.get(x, y);
     }
+
+    this.maxPlatformDistance = scene.scale.height * 3; //Distance needed for new platforms to respawn
+
     /* END-USER-CTR-CODE */
   }
 
   /* START-USER-CODE */
   /** @type {Phaser.GameObjects.Group} */
   group;
+  /** @type {number} */
+  maxPlatformDistance;
 
+  update() {
+    // Respawning Platform logic
+    const scrollY = this.scene.cameras.main.scrollY;
+
+    // Tracks which platforms need to be moved
+    const children = this.group.getChildren();
+    const childrenToMove = [];
+
+    children.forEach((child) => {
+      if (child.y >= scrollY + this.maxPlatformDistance) {
+        childrenToMove.push(child);
+      }
+    });
+
+    //Distance to spawn new platforms from starting position
+    let childrenToMoveYoffset = 0;
+    childrenToMove.forEach((child) => {
+      child.x = Phaser.Math.Between(125, 550); // X position for new platforms
+      childrenToMoveYoffset += Phaser.Math.Between(10, 40); //Y Position for new platforms
+      child.y = scrollY - childrenToMoveYoffset;
+    });
+  }
   // Write your code here.
 
   /* END-USER-CODE */

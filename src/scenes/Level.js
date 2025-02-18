@@ -9,84 +9,89 @@ import PlatformGroupPrefab from "../prefabs/PlatformGroupPrefab.js";
 /* END-USER-IMPORTS */
 
 export default class Level extends Phaser.Scene {
+  constructor() {
+    super("Level");
 
-	constructor() {
-		super("Level");
-
-		/* START-USER-CTR-CODE */
+    /* START-USER-CTR-CODE */
     // Write your code here.
     /* END-USER-CTR-CODE */
-	}
+  }
 
-	/** @returns {void} */
-	editorCreate() {
+  /** @returns {void} */
+  editorCreate() {
+    // leftKeyboard_key
+    const leftKeyboard_key = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.LEFT
+    );
 
-		// leftKeyboard_key
-		const leftKeyboard_key = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+    // rightKeyboard_key
+    const rightKeyboard_key = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.RIGHT
+    );
 
-		// rightKeyboard_key
-		const rightKeyboard_key = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+    // levelLayer
+    const levelLayer = this.add.layer();
+    levelLayer.blendMode = Phaser.BlendModes.SKIP_CHECK;
 
-		// levelLayer
-		const levelLayer = this.add.layer();
-		levelLayer.blendMode = Phaser.BlendModes.SKIP_CHECK;
+    // leftWallTileSprite
+    const leftWallTileSprite = new WallPrefab(this, 0, 0);
+    levelLayer.add(leftWallTileSprite);
 
-		// leftWallTileSprite
-		const leftWallTileSprite = new WallPrefab(this, 0, 0);
-		levelLayer.add(leftWallTileSprite);
+    // rightWallTileSprite
+    const rightWallTileSprite = new WallPrefab(this, 576, 0);
+    rightWallTileSprite.flipX = true;
+    rightWallTileSprite.flipY = false;
+    levelLayer.add(rightWallTileSprite);
 
-		// rightWallTileSprite
-		const rightWallTileSprite = new WallPrefab(this, 576, 0);
-		rightWallTileSprite.flipX = true;
-		rightWallTileSprite.flipY = false;
-		levelLayer.add(rightWallTileSprite);
+    // playerLayer
+    const playerLayer = this.add.layer();
+    playerLayer.blendMode = Phaser.BlendModes.SKIP_CHECK;
 
-		// playerLayer
-		const playerLayer = this.add.layer();
-		playerLayer.blendMode = Phaser.BlendModes.SKIP_CHECK;
+    // player
+    const player = new PlayerPrefab(this, 320, 273);
+    playerLayer.add(player);
 
-		// player
-		const player = new PlayerPrefab(this, 320, 273);
-		playerLayer.add(player);
+    // platformGroupPrefab
+    const platformGroupPrefab = new PlatformGroupPrefab(this);
+    this.add.existing(platformGroupPrefab);
 
-		// platformGroupPrefab
-		const platformGroupPrefab = new PlatformGroupPrefab(this);
-		this.add.existing(platformGroupPrefab);
+    // lists
+    const movingLevelTileSprites = [rightWallTileSprite, leftWallTileSprite];
+    const walls = [rightWallTileSprite, leftWallTileSprite];
 
-		// lists
-		const movingLevelTileSprites = [rightWallTileSprite, leftWallTileSprite];
-		const walls = [rightWallTileSprite, leftWallTileSprite];
+    // playerWithPlatformsCollider
+    this.physics.add.collider(player, platformGroupPrefab.group);
 
-		// playerWithPlatformsCollider
-		this.physics.add.collider(player, platformGroupPrefab.group);
+    // playerWithWallsCollider
+    this.physics.add.collider(player, walls);
 
-		// playerWithWallsCollider
-		this.physics.add.collider(player, walls);
+    // rightWallTileSprite (prefab fields)
+    rightWallTileSprite.tileOffsetY = -250;
 
-		// rightWallTileSprite (prefab fields)
-		rightWallTileSprite.tileOffsetY = -250;
+    this.player = player;
+    this.platformGroupPrefab = platformGroupPrefab;
+    this.leftKeyboard_key = leftKeyboard_key;
+    this.rightKeyboard_key = rightKeyboard_key;
+    this.movingLevelTileSprites = movingLevelTileSprites;
+    this.walls = walls;
 
-		this.player = player;
-		this.leftKeyboard_key = leftKeyboard_key;
-		this.rightKeyboard_key = rightKeyboard_key;
-		this.movingLevelTileSprites = movingLevelTileSprites;
-		this.walls = walls;
+    this.events.emit("scene-awake");
+  }
 
-		this.events.emit("scene-awake");
-	}
+  /** @type {PlayerPrefab} */
+  player;
+  /** @type {PlatformGroupPrefab} */
+  platformGroupPrefab;
+  /** @type {Phaser.Input.Keyboard.Key} */
+  leftKeyboard_key;
+  /** @type {Phaser.Input.Keyboard.Key} */
+  rightKeyboard_key;
+  /** @type {WallPrefab[]} */
+  movingLevelTileSprites;
+  /** @type {WallPrefab[]} */
+  walls;
 
-	/** @type {PlayerPrefab} */
-	player;
-	/** @type {Phaser.Input.Keyboard.Key} */
-	leftKeyboard_key;
-	/** @type {Phaser.Input.Keyboard.Key} */
-	rightKeyboard_key;
-	/** @type {WallPrefab[]} */
-	movingLevelTileSprites;
-	/** @type {WallPrefab[]} */
-	walls;
-
-	/* START-USER-CODE */
+  /* START-USER-CODE */
   firstJumpMade = false;
 
   // Write more your code here
@@ -159,6 +164,9 @@ export default class Level extends Phaser.Scene {
         tileSprite.body.setOffset(0, this.cameras.main.worldView.y);
       }
     });
+
+    // update for nw platform positions from PlatformGroupPrefab
+    this.platformGroupPrefab.update();
   }
 
   /* END-USER-CODE */
