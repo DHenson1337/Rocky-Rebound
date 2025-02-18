@@ -22,8 +22,11 @@
             },
             "scaleX": 2.2,
             "scaleY": 2.2,
+            "animationPlayMethod": 1,
+            "animationKey": "playerIdle",
+            "animationPreview": true,
             "up": false,
-            "body.width": 14,
+            "body.width": 12,
             "body.height": 30,
             "body.offset.x": 18,
             "body.offset.y": 6
