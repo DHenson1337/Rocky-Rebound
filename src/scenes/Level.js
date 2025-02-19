@@ -101,6 +101,17 @@ export default class Level extends Phaser.Scene {
     this.cameras.main.startFollow(this.player, false, 0.1, 1, 0.1); //Player Camera
     this.cameras.main.setDeadzone(this.scale.width); //Sets Camera Deadzone
     this.firstJumpMade = false;
+
+    // Optional: Add debug visualization for jump height
+    if (this.physics.config.debug) {
+      const graphics = this.add.graphics();
+      const maxJumpHeight = Math.pow(500, 2) / (2 * 300); // Same calculation as in PlatformGroupPrefab
+      this.events.on("update", () => {
+        graphics.clear();
+        graphics.lineStyle(1, 0x00ff00);
+        graphics.strokeCircle(this.player.x, this.player.y - maxJumpHeight, 5);
+      });
+    }
   }
 
   update() {

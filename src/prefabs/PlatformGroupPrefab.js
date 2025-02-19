@@ -15,31 +15,55 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
     this.blendMode = Phaser.BlendModes.SKIP_CHECK;
 
     /* START-USER-CTR-CODE */
-    // Write your code here.
-
-    //Game Object PlatformPrefab
+    // Create a group to manage all platform instances
     this.group = scene.add.group({
       classType: PlatformPrefab,
     });
 
-    //Platform base settings
-    const BASE_Y = 450;
-    const PLATFORM_GAP = 350;
-    const PLATFORM_COUNT = 5;
-    const X1 = 125;
-    const X2 = 550;
+    // Platform settings
+    const BASE_Y = 450; // Starting Y position for first platform
+    const PLATFORM_GAP = 350; // Consistent vertical gap between platforms
+    const PLATFORM_COUNT = 5; // Initial number of platforms
+    const MIN_X = 135; // Leftmost spawn position
+    const MAX_X = 500; // Rightmost spawn position
+    const MIN_X_GAP = 100; // Minimum horizontal gap between platforms
 
-    //Create base platform
+    // Create base platform (centered)
     this.group.get(320, BASE_Y);
 
-    //Loop for amount of platforms to be randomy generated and location
+    // Initial Platform setup
+    let lastX = 320; // Track last platform X position
+    let currentY = BASE_Y; // Track current Y position
+
+    // Generate initial platforms with consistent spacing
     for (let i = 1; i < PLATFORM_COUNT; i += 1) {
-      const x = Phaser.Math.Between(X1, X2); //x value for random spawned platforms
-      const y = BASE_Y - PLATFORM_GAP * i; //Subtract gap for each platform
-      this.group.get(x, y);
+      // Get new X position with minimum distance from last platform
+      let newX;
+      do {
+        newX = Phaser.Math.Between(MIN_X, MAX_X);
+      } while (Math.abs(newX - lastX) < MIN_X_GAP);
+
+      // Move up by consistent gap
+      currentY -= PLATFORM_GAP;
+
+      // Create new platform
+      this.group.get(newX, currentY);
+      lastX = newX;
     }
 
-    this.maxPlatformDistance = scene.scale.height * 3; //Distance needed for new platforms to respawn
+    // Store settings for use in update()
+    this.PLATFORM_GAP = PLATFORM_GAP;
+    this.MIN_X = MIN_X;
+    this.MAX_X = MAX_X;
+    this.MIN_X_GAP = MIN_X_GAP;
+
+    // Set up camera and viewport boundaries
+    this.viewportHeight = scene.scale.height;
+    this.maxPlatformDistance = scene.scale.height * 3; // Distance before platforms respawn
+    this.minPlatformDistance = -this.viewportHeight;
+
+    // Performance optimization
+    this._lastScrollY = 0; // Track camera position for updates
 
     /* END-USER-CTR-CODE */
   }
@@ -51,28 +75,46 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
   maxPlatformDistance;
 
   update() {
-    // Respawning Platform logic
+    // Get current camera scroll position
     const scrollY = this.scene.cameras.main.scrollY;
 
-    // Tracks which platforms need to be moved
-    const children = this.group.getChildren();
-    const childrenToMove = [];
+    // Only update if camera has moved significantly (optimization)
+    if (Math.abs(this._lastScrollY - scrollY) < 50) {
+      return;
+    }
+    this._lastScrollY = scrollY;
 
-    children.forEach((child) => {
-      if (child.y >= scrollY + this.maxPlatformDistance) {
-        childrenToMove.push(child);
+    // Find all platforms that need to be repositioned
+    const children = this.group.getChildren();
+    const platformsToMove = [];
+
+    children.forEach((platform) => {
+      if (platform.y >= scrollY + this.maxPlatformDistance) {
+        platformsToMove.push(platform);
       }
     });
 
-    //Distance to spawn new platforms from starting position
-    let childrenToMoveYoffset = 0;
-    childrenToMove.forEach((child) => {
-      child.x = Phaser.Math.Between(125, 550); // X position for new platforms
-      childrenToMoveYoffset += Phaser.Math.Between(10, 40); //Y Position for new platforms
-      child.y = scrollY - childrenToMoveYoffset;
+    // Find the highest platform's Y position
+    const highestPlatform = children.reduce((highest, platform) => {
+      return platform.y < highest.y ? platform : highest;
+    });
+
+    // Reposition platforms above the highest one
+    let lastX = null;
+    platformsToMove.forEach((platform) => {
+      // Generate new X position with minimum spacing
+      let newX;
+      do {
+        newX = Phaser.Math.Between(this.MIN_X, this.MAX_X);
+      } while (lastX !== null && Math.abs(newX - lastX) < this.MIN_X_GAP);
+
+      lastX = newX;
+      platform.x = newX;
+
+      // Position above highest platform with consistent gap
+      platform.y = highestPlatform.y - this.PLATFORM_GAP;
     });
   }
-  // Write your code here.
 
   /* END-USER-CODE */
 }
