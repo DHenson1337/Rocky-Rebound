@@ -6,31 +6,35 @@
 /* END-USER-IMPORTS */
 
 export default class UI extends Phaser.Scene {
-  constructor() {
-    super("UI");
 
-    /* START-USER-CTR-CODE */
+	constructor() {
+		super("UI");
+
+		/* START-USER-CTR-CODE */
     // Write your code here.
     /* END-USER-CTR-CODE */
-  }
+	}
 
-  /** @returns {void} */
-  editorCreate() {
-    // scoreTextGameObject
-    const scoreTextGameObject = this.add.text(640, 5, "", {});
-    scoreTextGameObject.setOrigin(1, 0);
-    scoreTextGameObject.text = "0";
-    scoreTextGameObject.setStyle({ fontFamily: "PressStart2P-Regular" });
+	/** @returns {void} */
+	editorCreate() {
 
-    this.scoreTextGameObject = scoreTextGameObject;
+		// scoreTextGameObject
+		const scoreTextGameObject = this.add.text(640, 5, "", {});
+		scoreTextGameObject.scaleX = 2.5;
+		scoreTextGameObject.scaleY = 2.5;
+		scoreTextGameObject.setOrigin(1, 0);
+		scoreTextGameObject.text = "0";
+		scoreTextGameObject.setStyle({ "fontFamily": "PressStart2P-Regular" });
 
-    this.events.emit("scene-awake");
-  }
+		this.scoreTextGameObject = scoreTextGameObject;
 
-  /** @type {Phaser.GameObjects.Text} */
-  scoreTextGameObject;
+		this.events.emit("scene-awake");
+	}
 
-  /* START-USER-CODE */
+	/** @type {Phaser.GameObjects.Text} */
+	scoreTextGameObject;
+
+	/* START-USER-CODE */
 
   // Write your code here
 

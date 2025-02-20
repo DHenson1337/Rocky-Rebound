@@ -20,6 +20,8 @@
             "scope": "CLASS",
             "x": 640,
             "y": 5,
+            "scaleX": 2.5,
+            "scaleY": 2.5,
             "originX": 1,
             "text": "0",
             "fontFamily": "PressStart2P-Regular"
