@@ -18,6 +18,7 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
     // Create a group to manage all platform instances
     this.group = scene.add.group({
       classType: PlatformPrefab,
+      runChildUpdate: true, // Calls child game objects from class above
     });
 
     // Platform settings
@@ -78,6 +79,8 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
   maxPlatformDistance;
   /** @type {number} */
   bottomMostPlatformYPosition;
+  /** @type {boolean} */
+  enableMovingPlatforms = true;
 
   update() {
     // Get current camera scroll position
@@ -125,6 +128,15 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
 
       // Position above highest platform with consistent gap
       platform.y = highestPlatform.y - this.PLATFORM_GAP;
+
+      // Enable moving platforms
+      if (this.enableMovingPlatforms) {
+        if (Phaser.Math.RND.between(0, 1) === 1) {
+          platform.startPlatformMovement();
+        } else {
+          platform.stopPlatformMovement();
+        }
+      }
     });
   }
 

@@ -19,6 +19,7 @@
             "texture": {
                 "key": "platform"
             },
+            "scaleX": 0.7,
             "scaleY": 0.3,
             "allowGravity": false,
             "left": false,

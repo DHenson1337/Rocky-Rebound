@@ -110,6 +110,7 @@ export default class Level extends Phaser.Scene {
   currentScore = 0;
   maxHeight = 0;
   startingMaxHeight = 0;
+  level = 0;
   // Write more your code here
 
   create() {
@@ -121,6 +122,7 @@ export default class Level extends Phaser.Scene {
     this.currentScore = 0;
     this.maxHeight = 0;
     this.startingMaxHeight = 0;
+    this.level = 0;
 
     // Optional: Add debug visualization for jump height
     if (this.physics.config.debug) {
@@ -212,13 +214,18 @@ export default class Level extends Phaser.Scene {
       return;
     }
 
-    // Score Tracker
+    // Score Tracker & difficulty setter
     if (distance > this.maxHeight && this.firstJumpMade) {
       this.maxHeight = distance;
       this.currentScore = Math.floor(
         (this.maxHeight - this.startingMaxHeight) / 10
       );
       this.scene.get("UI").updateScoreText(this.currentScore);
+
+      // Turn on moving platforms
+      if (this.level === 0 && this.currentScore > 200) {
+        this.platformGroupPrefab.enableMovingPlatforms = true;
+      }
     }
 
     //Condition for Game Over

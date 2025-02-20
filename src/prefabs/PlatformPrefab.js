@@ -9,6 +9,7 @@ export default class PlatformPrefab extends Phaser.Physics.Arcade.Image {
   constructor(scene, x, y, texture, frame) {
     super(scene, x ?? 0, y ?? 0, texture || "platform", frame);
 
+    this.scaleX = 0.7;
     this.scaleY = 0.3;
     scene.physics.add.existing(this, false);
     this.body.allowGravity = false;
@@ -18,13 +19,50 @@ export default class PlatformPrefab extends Phaser.Physics.Arcade.Image {
     this.body.setSize(144, 48, false);
 
     /* START-USER-CTR-CODE */
+
     // Write your code here.
+
+    // Moving Platform settings
+    this.enablePlatformMovement = false;
+    this.horizontalVelocity = 160; //speed of moving platform
+    this.minXPosition = 135;
+    this.maxXPosition = 500;
+
     /* END-USER-CTR-CODE */
   }
 
   /* START-USER-CODE */
 
   // Write your code here.
+
+  // Moving Platform Variables
+  horizontalVelocity;
+  minXPosition;
+  maxXPosition;
+  enablePlatformMovement;
+
+  update() {
+    // logic for moving platforms range
+    if (!this.enablePlatformMovement) {
+      return;
+    }
+    const velocity = this.body.velocity;
+    if (this.x < this.minXPosition) {
+      velocity.x = this.horizontalVelocity;
+    } else if (this.x > this.maxXPosition) {
+      velocity.x = this.horizontalVelocity * -1;
+    }
+  }
+
+  startPlatformMovement() {
+    this.body.velocity.x = this.horizontalVelocity;
+    this.enablePlatformMovement = true;
+  }
+
+  stopPlatformMovement() {
+    this.body.velocity.x = 0;
+    this.enablePlatformMovement = false;
+  }
 
   /* END-USER-CODE */
 }
