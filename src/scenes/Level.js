@@ -48,7 +48,7 @@ export default class Level extends Phaser.Scene {
     playerLayer.blendMode = Phaser.BlendModes.SKIP_CHECK;
 
     // player
-    const player = new PlayerPrefab(this, 320, 273);
+    const player = new PlayerPrefab(this, 320, -164);
     playerLayer.add(player);
 
     // platformGroupPrefab
@@ -93,6 +93,7 @@ export default class Level extends Phaser.Scene {
 
   /* START-USER-CODE */
   firstJumpMade = false;
+  isGameOver = false;
 
   // Write more your code here
 
@@ -101,6 +102,7 @@ export default class Level extends Phaser.Scene {
     this.cameras.main.startFollow(this.player, false, 0.1, 1, 0.1); //Player Camera
     this.cameras.main.setDeadzone(this.scale.width); //Sets Camera Deadzone
     this.firstJumpMade = false;
+    this.isGameOver = false;
 
     // Optional: Add debug visualization for jump height
     if (this.physics.config.debug) {
@@ -142,7 +144,12 @@ export default class Level extends Phaser.Scene {
     //Player Movement
 
     // Left
-    if (this.leftKeyboard_key.isDown && !isTouchingDown && this.firstJumpMade) {
+    if (
+      this.leftKeyboard_key.isDown &&
+      !isTouchingDown &&
+      this.firstJumpMade &&
+      !this.isGameOver
+    ) {
       this.player.setVelocityX(-300);
       //Flips player to face left direction
       this.player.setFlipX(true);
@@ -151,7 +158,8 @@ export default class Level extends Phaser.Scene {
     else if (
       this.rightKeyboard_key.isDown &&
       !isTouchingDown &&
-      this.firstJumpMade
+      this.firstJumpMade &&
+      !this.isGameOver
     ) {
       this.player.setVelocityX(+300);
       //Flips player to face right direction
@@ -175,6 +183,32 @@ export default class Level extends Phaser.Scene {
         tileSprite.body.setOffset(0, this.cameras.main.worldView.y);
       }
     });
+
+    // Checks if GameOver is triggered
+    if (this.isGameOver) {
+      this.player.setVelocityY(15);
+      return;
+    }
+    if (
+      this.player.y >
+      this.platformGroupPrefab.bottomMostPlatformYPosition + 50
+    ) {
+      this.isGameOver = true;
+
+      this.player.setVelocityY(15);
+
+      // Special effects to play on player falling death
+      const wipeFx = this.player.postFX.addWipe(0.1, 0, 1);
+      this.tweens.add({
+        targets: wipeFx,
+        progress: 1,
+        duration: 3000,
+        onComplete: () => {
+          this.player.body.enable = false;
+          console.log("GameOver💔");
+        },
+      });
+    }
 
     // update for nw platform positions from PlatformGroupPrefab
     this.platformGroupPrefab.update();

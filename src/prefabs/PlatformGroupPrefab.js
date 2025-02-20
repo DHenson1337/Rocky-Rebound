@@ -21,7 +21,7 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
     });
 
     // Platform settings
-    const BASE_Y = 450; // Starting Y position for first platform
+    const BASE_Y = 0; // Starting Y position for first platform
     const PLATFORM_GAP = 350; // Consistent vertical gap between platforms
     const PLATFORM_COUNT = 5; // Initial number of platforms
     const MIN_X = 135; // Leftmost spawn position
@@ -62,6 +62,9 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
     this.maxPlatformDistance = scene.scale.height * 3; // Distance before platforms respawn
     this.minPlatformDistance = -this.viewportHeight;
 
+    //Lowest platform position
+    this.bottomMostPlatformYPosition = 0;
+
     // Performance optimization
     this._lastScrollY = 0; // Track camera position for updates
 
@@ -73,6 +76,8 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
   group;
   /** @type {number} */
   maxPlatformDistance;
+  /** @type {number} */
+  bottomMostPlatformYPosition;
 
   update() {
     // Get current camera scroll position
@@ -88,9 +93,16 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
     const children = this.group.getChildren();
     const platformsToMove = [];
 
+    //Lowest platform
+    this.bottomMostPlatformYPosition = children[0].y;
+
     children.forEach((platform) => {
       if (platform.y >= scrollY + this.maxPlatformDistance) {
         platformsToMove.push(platform);
+      }
+      // Update bottommost platform Y position
+      if (platform.y > this.bottomMostPlatformYPosition) {
+        this.bottomMostPlatformYPosition = platform.y;
       }
     });
 

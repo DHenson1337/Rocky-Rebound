@@ -21,7 +21,6 @@
             },
             "scaleY": 0.3,
             "allowGravity": false,
-            "down": false,
             "left": false,
             "right": false,
             "pushable": false,

@@ -25,7 +25,6 @@
             "animationPlayMethod": 1,
             "animationKey": "playerIdle",
             "animationPreview": true,
-            "up": false,
             "body.width": 12,
             "body.height": 30,
             "body.offset.x": 18,
