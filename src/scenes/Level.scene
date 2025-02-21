@@ -19,6 +19,50 @@
             "blendMode": -1,
             "list": [
                 {
+                    "prefabId": "25e17783-1e38-428a-8bce-b97ead6fbb7a",
+                    "id": "96c1e251-b18b-4b0f-a4af-be4d71cd1476",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "background1Prefab",
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "prefabId": "8ebca6a9-ef5d-4a2b-a548-3f07924ae4d1",
+                    "id": "954ff6d6-3d7a-4194-b643-7848847c19ab",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "background2Prefab",
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "prefabId": "86a3c6c0-e9b6-4869-ae4d-cd32141a5087",
+                    "id": "26bceb3a-f0fc-44e4-ace2-dff395b13969",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "background3Prefab",
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "prefabId": "f492d044-8ab3-4642-834c-a5e1bf927297",
+                    "id": "995cf05e-06a6-4304-b2f9-6ad2253e4452",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "background4Prefab",
+                    "x": 0,
+                    "y": 0
+                },
+                {
                     "prefabId": "dbf43648-c436-440c-ba62-d3b8d10fbcce",
                     "id": "22c077e3-c51b-48fe-a87f-9f98b1e14b26",
                     "unlock": [
@@ -136,7 +180,8 @@
             "label": "movingLevelTileSprites",
             "objectIds": [
                 "6845a48a-d6c7-4533-838c-1c1edcfe5caa",
-                "22c077e3-c51b-48fe-a87f-9f98b1e14b26"
+                "22c077e3-c51b-48fe-a87f-9f98b1e14b26",
+                "995cf05e-06a6-4304-b2f9-6ad2253e4452"
             ]
         },
         {
