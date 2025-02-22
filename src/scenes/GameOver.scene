@@ -55,6 +55,57 @@
             "text": "0\n",
             "fontFamily": "PressStart2P-Regular",
             "fontSize": "10px"
+        },
+        {
+            "prefabId": "7bf8a19d-1211-4b59-bb38-b034085b171f",
+            "id": "6e8ecbf4-3097-440c-8670-baa0577ba23b",
+            "label": "onAwakeActionScript",
+            "list": [
+                {
+                    "prefabId": "26d6c86f-1f9a-4dc9-9d2e-f64a7fbbbb28",
+                    "id": "a3c189c1-8bb4-49a2-a710-e08b421d5e07",
+                    "unlock": [
+                        "duration",
+                        "fadeEvent"
+                    ],
+                    "label": "fadeEffectCameraActionScript",
+                    "duration": 500,
+                    "fadeEvent": "camerafadeincomplete"
+                },
+                {
+                    "prefabId": "34cde368-8bd4-4596-97fc-47c6825699b1",
+                    "id": "09d0c0f8-725f-4399-a1aa-091d6e470cfa",
+                    "unlock": [
+                        "delay"
+                    ],
+                    "label": "timeEventActionScript",
+                    "delay": 4000,
+                    "list": [
+                        {
+                            "prefabId": "26d6c86f-1f9a-4dc9-9d2e-f64a7fbbbb28",
+                            "id": "5c356972-7010-4eeb-9d89-6599f4ceccdd",
+                            "unlock": [
+                                "duration",
+                                "fadeEvent"
+                            ],
+                            "label": "fadeEffectCameraActionScript_1",
+                            "duration": 500,
+                            "fadeEvent": "camerafadeoutcomplete",
+                            "list": [
+                                {
+                                    "prefabId": "6b1b396b-83fa-4b7a-8360-c7e156fc0f24",
+                                    "id": "34f1f81d-c54e-4b0f-a404-b0e85f1d7d76",
+                                    "unlock": [
+                                        "sceneKey"
+                                    ],
+                                    "label": "startSceneActionScript",
+                                    "sceneKey": "Level"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ],
     "plainObjects": [],

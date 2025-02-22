@@ -2,61 +2,87 @@
 
 /* START OF COMPILED CODE */
 
+import OnAwakeActionScript from "../scriptnodes/utils/OnAwakeActionScript.js";
+import FadeEffectCameraActionScript from "../scriptnodes/camera/FadeEffectCameraActionScript.js";
+import TimeEventActionScript from "../scriptnodes/timer/TimeEventActionScript.js";
+import StartSceneActionScript from "../scriptnodes/scene/StartSceneActionScript.js";
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
 
 export default class GameOver extends Phaser.Scene {
-  constructor() {
-    super("GameOver");
 
-    /* START-USER-CTR-CODE */
+	constructor() {
+		super("GameOver");
+
+		/* START-USER-CTR-CODE */
     // Write your code here.
     /* END-USER-CTR-CODE */
-  }
+	}
 
-  /** @returns {void} */
-  editorCreate() {
-    // gameOverTextGameObject
-    const gameOverTextGameObject = this.add.text(90, 99, "", {});
-    gameOverTextGameObject.scaleX = 2.5;
-    gameOverTextGameObject.scaleY = 2.5;
-    gameOverTextGameObject.text = "Game Over";
-    gameOverTextGameObject.setStyle({
-      fontFamily: "PressStart2P-Regular",
-      fontSize: "20px",
-    });
+	/** @returns {void} */
+	editorCreate() {
 
-    // scoreTextGameObject_1
-    const scoreTextGameObject_1 = this.add.text(305, 282, "", {});
-    scoreTextGameObject_1.scaleX = 2.5;
-    scoreTextGameObject_1.scaleY = 2.5;
-    scoreTextGameObject_1.setOrigin(0.5, 0.5);
-    scoreTextGameObject_1.text = "Score";
-    scoreTextGameObject_1.setStyle({
-      fontFamily: "PressStart2P-Regular",
-      fontSize: "10px",
-    });
+		// gameOverTextGameObject
+		const gameOverTextGameObject = this.add.text(90, 99, "", {});
+		gameOverTextGameObject.scaleX = 2.5;
+		gameOverTextGameObject.scaleY = 2.5;
+		gameOverTextGameObject.text = "Game Over";
+		gameOverTextGameObject.setStyle({ "fontFamily": "PressStart2P-Regular", "fontSize": "20px" });
 
-    // scoreValueTextGameObject
-    const scoreValueTextGameObject = this.add.text(304, 374, "", {});
-    scoreValueTextGameObject.scaleX = 2.5;
-    scoreValueTextGameObject.scaleY = 2.5;
-    scoreValueTextGameObject.setOrigin(0.5, 0.5);
-    scoreValueTextGameObject.text = "0\n";
-    scoreValueTextGameObject.setStyle({
-      fontFamily: "PressStart2P-Regular",
-      fontSize: "10px",
-    });
+		// scoreTextGameObject_1
+		const scoreTextGameObject_1 = this.add.text(305, 282, "", {});
+		scoreTextGameObject_1.scaleX = 2.5;
+		scoreTextGameObject_1.scaleY = 2.5;
+		scoreTextGameObject_1.setOrigin(0.5, 0.5);
+		scoreTextGameObject_1.text = "Score";
+		scoreTextGameObject_1.setStyle({ "fontFamily": "PressStart2P-Regular", "fontSize": "10px" });
 
-    this.scoreValueTextGameObject = scoreValueTextGameObject;
+		// scoreValueTextGameObject
+		const scoreValueTextGameObject = this.add.text(304, 374, "", {});
+		scoreValueTextGameObject.scaleX = 2.5;
+		scoreValueTextGameObject.scaleY = 2.5;
+		scoreValueTextGameObject.setOrigin(0.5, 0.5);
+		scoreValueTextGameObject.text = "0\n";
+		scoreValueTextGameObject.setStyle({ "fontFamily": "PressStart2P-Regular", "fontSize": "10px" });
 
-    this.events.emit("scene-awake");
-  }
+		// onAwakeActionScript
+		const onAwakeActionScript = new OnAwakeActionScript(this);
 
-  /** @type {Phaser.GameObjects.Text} */
-  scoreValueTextGameObject;
+		// fadeEffectCameraActionScript
+		const fadeEffectCameraActionScript = new FadeEffectCameraActionScript(onAwakeActionScript);
 
-  /* START-USER-CODE */
+		// timeEventActionScript
+		const timeEventActionScript = new TimeEventActionScript(onAwakeActionScript);
+
+		// fadeEffectCameraActionScript_1
+		const fadeEffectCameraActionScript_1 = new FadeEffectCameraActionScript(timeEventActionScript);
+
+		// startSceneActionScript
+		const startSceneActionScript = new StartSceneActionScript(fadeEffectCameraActionScript_1);
+
+		// fadeEffectCameraActionScript (prefab fields)
+		fadeEffectCameraActionScript.duration = 500;
+		fadeEffectCameraActionScript.fadeEvent = "camerafadeincomplete";
+
+		// timeEventActionScript (prefab fields)
+		timeEventActionScript.delay = 4000;
+
+		// fadeEffectCameraActionScript_1 (prefab fields)
+		fadeEffectCameraActionScript_1.duration = 500;
+		fadeEffectCameraActionScript_1.fadeEvent = "camerafadeoutcomplete";
+
+		// startSceneActionScript (prefab fields)
+		startSceneActionScript.sceneKey = "Level";
+
+		this.scoreValueTextGameObject = scoreValueTextGameObject;
+
+		this.events.emit("scene-awake");
+	}
+
+	/** @type {Phaser.GameObjects.Text} */
+	scoreValueTextGameObject;
+
+	/* START-USER-CODE */
 
   // Write your code here
 

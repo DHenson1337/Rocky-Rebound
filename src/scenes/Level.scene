@@ -136,6 +136,46 @@
                     "sceneKey": "UI"
                 }
             ]
+        },
+        {
+            "prefabId": "34cde368-8bd4-4596-97fc-47c6825699b1",
+            "id": "9f66f0ed-c81c-4275-826e-48a739b154b3",
+            "label": "timeEventActionScriptForSceneTransition",
+            "displayName": "Start Next Scene Script",
+            "scope": "CLASS",
+            "list": [
+                {
+                    "prefabId": "26d6c86f-1f9a-4dc9-9d2e-f64a7fbbbb28",
+                    "id": "e1934e85-bbba-457e-98d5-29e0f6caa4cd",
+                    "unlock": [
+                        "duration",
+                        "fadeEvent"
+                    ],
+                    "label": "fadeEffectCameraActionScript",
+                    "duration": 500,
+                    "fadeEvent": "camerafadeoutcomplete",
+                    "list": [
+                        {
+                            "prefabId": "6b1b396b-83fa-4b7a-8360-c7e156fc0f24",
+                            "id": "4af3a401-bd87-44e5-a20c-81696ce1c719",
+                            "unlock": [
+                                "sceneKey"
+                            ],
+                            "label": "startSceneActionScript",
+                            "sceneKey": "GameOver"
+                        }
+                    ]
+                },
+                {
+                    "prefabId": "884f45d6-b90f-4905-a987-3e9bed69c26e",
+                    "id": "14b4cb62-285d-4041-9fc1-0ec14dc5326a",
+                    "unlock": [
+                        "sceneKey"
+                    ],
+                    "label": "stopSceneActionScript",
+                    "sceneKey": "UI"
+                }
+            ]
         }
     ],
     "plainObjects": [
