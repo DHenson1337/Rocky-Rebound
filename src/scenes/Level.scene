@@ -127,13 +127,26 @@
             "label": "onAwakeActionScript",
             "list": [
                 {
-                    "prefabId": "0ed1159f-ee3d-4ce9-82da-e76768c045b5",
-                    "id": "bde8cb45-8afe-46ce-b0ad-727b418348ab",
+                    "prefabId": "26d6c86f-1f9a-4dc9-9d2e-f64a7fbbbb28",
+                    "id": "351cb685-8cdf-4a14-8601-1606be5789ea",
                     "unlock": [
-                        "sceneKey"
+                        "duration",
+                        "fadeEvent"
                     ],
-                    "label": "launchSceneActionScript",
-                    "sceneKey": "UI"
+                    "label": "fadeEffectCameraActionScript_1",
+                    "duration": 500,
+                    "fadeEvent": "camerafadeincomplete",
+                    "list": [
+                        {
+                            "prefabId": "0ed1159f-ee3d-4ce9-82da-e76768c045b5",
+                            "id": "bde8cb45-8afe-46ce-b0ad-727b418348ab",
+                            "unlock": [
+                                "sceneKey"
+                            ],
+                            "label": "launchSceneActionScript",
+                            "sceneKey": "UI"
+                        }
+                    ]
                 }
             ]
         },

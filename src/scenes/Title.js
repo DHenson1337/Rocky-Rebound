@@ -195,6 +195,8 @@ export default class Title extends Phaser.Scene {
   walls;
   /** @type {TimeEventActionScript} */
   timeEventActionScriptForSceneTransition;
+  /** @type {boolean} */
+  isTransitioning = false;
 
   /* START-USER-CODE */
 
@@ -207,6 +209,7 @@ export default class Title extends Phaser.Scene {
     this.player.body.enable = false;
 
     this.player.play("playerIdle2");
+    this.isTransitioning = false; // Reset transition flag
   }
 
   startGame() {
