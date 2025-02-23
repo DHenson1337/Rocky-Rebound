@@ -1,0 +1,263 @@
+{
+    "id": "49793756-12cc-43ce-b585-97042f5c7b1a",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "importFileExtension": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Title",
+        "borderWidth": 640,
+        "borderHeight": 480
+    },
+    "displayList": [
+        {
+            "type": "Layer",
+            "id": "f84f0e4e-1c82-4b66-b606-2e1dacaad946",
+            "label": "levelLayer",
+            "blendMode": -1,
+            "list": [
+                {
+                    "prefabId": "25e17783-1e38-428a-8bce-b97ead6fbb7a",
+                    "id": "7a2a4b6e-eced-4d5f-b029-67dc7521f7a9",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "background1Prefab",
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "prefabId": "8ebca6a9-ef5d-4a2b-a548-3f07924ae4d1",
+                    "id": "a593b169-858d-45be-886b-2b82276789b7",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "background2Prefab",
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "prefabId": "86a3c6c0-e9b6-4869-ae4d-cd32141a5087",
+                    "id": "c1032cd7-1673-4fa2-987f-1d6bf20cc038",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "background3Prefab",
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "prefabId": "f492d044-8ab3-4642-834c-a5e1bf927297",
+                    "id": "b3adebbe-1b04-4434-a5a9-076872e6fbf9",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "background4Prefab",
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "prefabId": "dbf43648-c436-440c-ba62-d3b8d10fbcce",
+                    "id": "fb83c468-857b-4b52-b8b5-eeaed283e5c1",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "leftWallTileSprite",
+                    "displayName": "Left Wall",
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "prefabId": "dbf43648-c436-440c-ba62-d3b8d10fbcce",
+                    "id": "1f334172-023c-472a-94be-10b01570babf",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "flipX",
+                        "flipY",
+                        "tileOffsetY"
+                    ],
+                    "label": "rightWallTileSprite",
+                    "displayName": "Right Wall",
+                    "tileOffsetY": -250,
+                    "x": 576,
+                    "y": 0,
+                    "flipX": true,
+                    "flipY": false
+                },
+                {
+                    "type": "Image",
+                    "id": "cd325d0e-a170-48b7-8bcd-d972b621bc42",
+                    "label": "ground",
+                    "texture": {
+                        "key": "ground"
+                    },
+                    "x": 81,
+                    "y": 384,
+                    "originX": 0,
+                    "originY": 0
+                }
+            ]
+        },
+        {
+            "type": "Layer",
+            "id": "0c58208a-66e1-403f-8fc2-e05e50d5416e",
+            "label": "playerLayer",
+            "blendMode": -1,
+            "list": [
+                {
+                    "prefabId": "9c5e279c-70cc-4630-a7f3-b7db77e49918",
+                    "id": "51dd38a0-dbdf-4904-863d-de71e603304c",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "player",
+                    "displayName": "Player",
+                    "scope": "CLASS",
+                    "x": 325,
+                    "y": 398
+                }
+            ]
+        },
+        {
+            "type": "Text",
+            "id": "882c2fa0-4dc4-4504-a256-1d945a38c391",
+            "label": "titleTextGameObject",
+            "displayName": "Title Text",
+            "x": 167,
+            "y": 84,
+            "text": "Upheaval",
+            "lineSpacing": 3,
+            "align": "center",
+            "fontFamily": "PressStart2P-Regular",
+            "fontSize": "40px",
+            "color": "#0086ddff",
+            "stroke": "#00ffff",
+            "shadow.offsetX": 6,
+            "shadow.offsetY": 2,
+            "shadow.stroke": true,
+            "shadow.fill": true
+        },
+        {
+            "type": "Text",
+            "id": "22bc1dfc-a33e-4bf5-af80-6ca2e98925b6",
+            "label": "clickToPlayTextGameObject",
+            "displayName": "Click To Play",
+            "x": 211,
+            "y": 196,
+            "text": "Click To Start",
+            "fontFamily": "PressStart2P-Regular",
+            "color": "#89cae8ff",
+            "stroke": "#000000ff",
+            "shadow.offsetX": 3,
+            "shadow.offsetY": 1
+        },
+        {
+            "prefabId": "7bf8a19d-1211-4b59-bb38-b034085b171f",
+            "id": "e16df686-7beb-46eb-ad20-62b19ef32a80",
+            "label": "onAwakeActionScript",
+            "list": [
+                {
+                    "prefabId": "26d6c86f-1f9a-4dc9-9d2e-f64a7fbbbb28",
+                    "id": "0bb4937b-69e6-47b8-b254-a915fb900d1e",
+                    "unlock": [
+                        "duration",
+                        "fadeEvent"
+                    ],
+                    "label": "fadeEffectCameraActionScript",
+                    "duration": 500,
+                    "fadeEvent": "camerafadeincomplete"
+                },
+                {
+                    "prefabId": "60f765a5-206f-4094-911b-c11367630985",
+                    "id": "8465f755-d02e-4363-8793-3ae2a5ddae10",
+                    "unlock": [
+                        "target",
+                        "duration",
+                        "yoyo",
+                        "repeat",
+                        "delay",
+                        "loopDelay",
+                        "tweenProperty",
+                        "tweenPropertyValue"
+                    ],
+                    "label": "tweenActionScript",
+                    "target": "clickToPlayTextGameObject",
+                    "duration": 1200,
+                    "yoyo": true,
+                    "repeat": -1,
+                    "delay": 500,
+                    "loopDelay": 500,
+                    "tweenProperty": "alpha",
+                    "tweenPropertyValue": "0.2"
+                },
+                {
+                    "prefabId": "e8e75fbe-17a0-49df-ae3c-964d0ecbf8f9",
+                    "id": "545b7298-8463-4308-9f2e-c55f32755eb6",
+                    "unlock": [
+                        "once"
+                    ],
+                    "label": "sceneOnPointerDownActionScript",
+                    "once": true,
+                    "list": [
+                        {
+                            "prefabId": "e29bc630-dabe-4a8c-97e0-45ccb875b877",
+                            "id": "80263332-381b-4582-b843-76808460e691",
+                            "unlock": [
+                                "callback"
+                            ],
+                            "label": "callbackActionScript",
+                            "callback": "() => {this.startGame();}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "prefabId": "34cde368-8bd4-4596-97fc-47c6825699b1",
+            "id": "23536899-0477-4a33-bb08-effefbcc019b",
+            "label": "timeEventActionScriptForSceneTransition",
+            "displayName": "Start Next Scene Script",
+            "scope": "CLASS",
+            "list": [
+                {
+                    "prefabId": "26d6c86f-1f9a-4dc9-9d2e-f64a7fbbbb28",
+                    "id": "85457f97-fc00-4cc6-b717-ebbe3036526b",
+                    "unlock": [
+                        "duration",
+                        "fadeEvent"
+                    ],
+                    "label": "fadeEffectCameraActionScript_1",
+                    "duration": 500,
+                    "fadeEvent": "camerafadeoutcomplete",
+                    "list": [
+                        {
+                            "prefabId": "6b1b396b-83fa-4b7a-8360-c7e156fc0f24",
+                            "id": "43a5249e-b08d-4c4a-a652-adbe04f439ed",
+                            "unlock": [
+                                "sceneKey"
+                            ],
+                            "label": "startSceneActionScript",
+                            "sceneKey": "Level"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}
