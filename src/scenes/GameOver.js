@@ -10,79 +10,94 @@ import StartSceneActionScript from "../scriptnodes/scene/StartSceneActionScript.
 /* END-USER-IMPORTS */
 
 export default class GameOver extends Phaser.Scene {
+  constructor() {
+    super("GameOver");
 
-	constructor() {
-		super("GameOver");
-
-		/* START-USER-CTR-CODE */
+    /* START-USER-CTR-CODE */
     // Write your code here.
     /* END-USER-CTR-CODE */
-	}
+  }
 
-	/** @returns {void} */
-	editorCreate() {
+  /** @returns {void} */
+  editorCreate() {
+    // gameOverTextGameObject
+    const gameOverTextGameObject = this.add.text(90, 99, "", {});
+    gameOverTextGameObject.scaleX = 2.5;
+    gameOverTextGameObject.scaleY = 2.5;
+    gameOverTextGameObject.text = "Game Over";
+    gameOverTextGameObject.setStyle({
+      fontFamily: "PressStart2P-Regular",
+      fontSize: "20px",
+    });
 
-		// gameOverTextGameObject
-		const gameOverTextGameObject = this.add.text(90, 99, "", {});
-		gameOverTextGameObject.scaleX = 2.5;
-		gameOverTextGameObject.scaleY = 2.5;
-		gameOverTextGameObject.text = "Game Over";
-		gameOverTextGameObject.setStyle({ "fontFamily": "PressStart2P-Regular", "fontSize": "20px" });
+    // scoreTextGameObject_1
+    const scoreTextGameObject_1 = this.add.text(305, 282, "", {});
+    scoreTextGameObject_1.scaleX = 2.5;
+    scoreTextGameObject_1.scaleY = 2.5;
+    scoreTextGameObject_1.setOrigin(0.5, 0.5);
+    scoreTextGameObject_1.text = "Score";
+    scoreTextGameObject_1.setStyle({
+      fontFamily: "PressStart2P-Regular",
+      fontSize: "10px",
+    });
 
-		// scoreTextGameObject_1
-		const scoreTextGameObject_1 = this.add.text(305, 282, "", {});
-		scoreTextGameObject_1.scaleX = 2.5;
-		scoreTextGameObject_1.scaleY = 2.5;
-		scoreTextGameObject_1.setOrigin(0.5, 0.5);
-		scoreTextGameObject_1.text = "Score";
-		scoreTextGameObject_1.setStyle({ "fontFamily": "PressStart2P-Regular", "fontSize": "10px" });
+    // scoreValueTextGameObject
+    const scoreValueTextGameObject = this.add.text(304, 374, "", {});
+    scoreValueTextGameObject.scaleX = 2.5;
+    scoreValueTextGameObject.scaleY = 2.5;
+    scoreValueTextGameObject.setOrigin(0.5, 0.5);
+    scoreValueTextGameObject.text = "0\n";
+    scoreValueTextGameObject.setStyle({
+      fontFamily: "PressStart2P-Regular",
+      fontSize: "10px",
+    });
 
-		// scoreValueTextGameObject
-		const scoreValueTextGameObject = this.add.text(304, 374, "", {});
-		scoreValueTextGameObject.scaleX = 2.5;
-		scoreValueTextGameObject.scaleY = 2.5;
-		scoreValueTextGameObject.setOrigin(0.5, 0.5);
-		scoreValueTextGameObject.text = "0\n";
-		scoreValueTextGameObject.setStyle({ "fontFamily": "PressStart2P-Regular", "fontSize": "10px" });
+    // onAwakeActionScript
+    const onAwakeActionScript = new OnAwakeActionScript(this);
 
-		// onAwakeActionScript
-		const onAwakeActionScript = new OnAwakeActionScript(this);
+    // fadeEffectCameraActionScript
+    const fadeEffectCameraActionScript = new FadeEffectCameraActionScript(
+      onAwakeActionScript
+    );
 
-		// fadeEffectCameraActionScript
-		const fadeEffectCameraActionScript = new FadeEffectCameraActionScript(onAwakeActionScript);
+    // timeEventActionScript
+    const timeEventActionScript = new TimeEventActionScript(
+      onAwakeActionScript
+    );
 
-		// timeEventActionScript
-		const timeEventActionScript = new TimeEventActionScript(onAwakeActionScript);
+    // fadeEffectCameraActionScript_1
+    const fadeEffectCameraActionScript_1 = new FadeEffectCameraActionScript(
+      timeEventActionScript
+    );
 
-		// fadeEffectCameraActionScript_1
-		const fadeEffectCameraActionScript_1 = new FadeEffectCameraActionScript(timeEventActionScript);
+    // startSceneActionScript
+    const startSceneActionScript = new StartSceneActionScript(
+      fadeEffectCameraActionScript_1
+    );
 
-		// startSceneActionScript
-		const startSceneActionScript = new StartSceneActionScript(fadeEffectCameraActionScript_1);
+    // fadeEffectCameraActionScript (prefab fields)
+    fadeEffectCameraActionScript.duration = 500;
+    fadeEffectCameraActionScript.fadeEvent = "camerafadeincomplete";
 
-		// fadeEffectCameraActionScript (prefab fields)
-		fadeEffectCameraActionScript.duration = 500;
-		fadeEffectCameraActionScript.fadeEvent = "camerafadeincomplete";
+    // timeEventActionScript (prefab fields)
+    timeEventActionScript.delay = 4000;
 
-		// timeEventActionScript (prefab fields)
-		timeEventActionScript.delay = 4000;
+    // fadeEffectCameraActionScript_1 (prefab fields)
+    fadeEffectCameraActionScript_1.duration = 500;
+    fadeEffectCameraActionScript_1.fadeEvent = "camerafadeoutcomplete";
 
-		// fadeEffectCameraActionScript_1 (prefab fields)
-		fadeEffectCameraActionScript_1.duration = 500;
-		fadeEffectCameraActionScript_1.fadeEvent = "camerafadeoutcomplete";
+    // startSceneActionScript (prefab fields)
+    startSceneActionScript.sceneKey = "Title";
 
-		// startSceneActionScript (prefab fields)
-		startSceneActionScript.sceneKey = "Title";
+    this.scoreValueTextGameObject = scoreValueTextGameObject;
 
-		this.scoreValueTextGameObject = scoreValueTextGameObject;
+    this.events.emit("scene-awake");
+  }
 
-		this.events.emit("scene-awake");
-	}
+  /** @type {Phaser.GameObjects.Text} */
+  scoreValueTextGameObject;
 
-	/** @type {Phaser.GameObjects.Text} */
-	scoreValueTextGameObject;
-
-	/* START-USER-CODE */
+  /* START-USER-CODE */
 
   // Write your code here
 
@@ -92,6 +107,12 @@ export default class GameOver extends Phaser.Scene {
     //Get the score to display on Game Over Scene
     const score = this.registry.get("score");
     this.scoreValueTextGameObject.setText(score);
+
+    // Play game over music
+    const audioManager = this.game.registry.get("audioManager");
+    if (audioManager) {
+      audioManager.playBGM("gameover");
+    }
   }
 
   /* END-USER-CODE */

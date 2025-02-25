@@ -205,6 +205,12 @@ export default class Title extends Phaser.Scene {
   create() {
     this.editorCreate();
 
+    // Play title music
+    const audioManager = this.game.registry.get("audioManager");
+    if (audioManager) {
+      audioManager.playBGM("title");
+    }
+
     // Disable player body (For title scene so they don't fall thorugh the world)
     this.player.body.enable = false;
 
@@ -241,12 +247,25 @@ export default class Title extends Phaser.Scene {
 
     // Initial jump
     this.player.play("playerJumpTitle");
+
+    // Play jump sound
+    const audioManager = this.game.registry.get("audioManager");
+    if (audioManager) {
+      audioManager.playSFX("jump");
+    }
+
     this.player.setVelocityY(-300);
     this.player.setVelocityX(100); // Slight movement towards wall
 
     // Listen for wall collision
     this.physics.add.collider(this.player, this.walls, () => {
       this.player.play("playerWallSlide");
+
+      // Play wall collision sound
+      const audioManager = this.game.registry.get("audioManager");
+      if (audioManager) {
+        audioManager.playSFX("wallCollision");
+      }
 
       // Short delay then final jump
       this.time.delayedCall(400, () => {
@@ -256,11 +275,23 @@ export default class Title extends Phaser.Scene {
         this.player.setFlipX(true); //Turn the opposite direction
         this.player.play("playerJumpTitle");
 
+        // Play jump sound
+        const audioManager = this.game.registry.get("audioManager");
+        if (audioManager) {
+          audioManager.playSFX("jump");
+        }
+
         // Chain to spin after jump animation
         this.player.once(
           Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + "playerJumpTitle",
           () => {
             this.player.play("playerSpin");
+
+            // Play spin sound
+            const audioManager = this.game.registry.get("audioManager");
+            if (audioManager) {
+              audioManager.playSFX("spin");
+            }
           }
         );
 

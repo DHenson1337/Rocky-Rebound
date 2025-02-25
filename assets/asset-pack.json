@@ -27,9 +27,37 @@
                 "key": "background4"
             },
             {
+                "url": [
+                    "assets/audio/sfx/fall.wav"
+                ],
+                "type": "audio",
+                "key": "fall"
+            },
+            {
+                "url": [
+                    "assets/audio/bgm/gameover.wav"
+                ],
+                "type": "audio",
+                "key": "gameover"
+            },
+            {
                 "url": "assets/other/ground.png",
                 "type": "image",
                 "key": "ground"
+            },
+            {
+                "url": [
+                    "assets/audio/sfx/jump.wav"
+                ],
+                "type": "audio",
+                "key": "jump"
+            },
+            {
+                "url": [
+                    "assets/audio/bgm/level.wav"
+                ],
+                "type": "audio",
+                "key": "level"
             },
             {
                 "url": "assets/other/platform.png",
@@ -57,9 +85,30 @@
                 "key": "PressStart2P-Regular"
             },
             {
+                "url": [
+                    "assets/audio/sfx/spin.mp3"
+                ],
+                "type": "audio",
+                "key": "spin"
+            },
+            {
+                "url": [
+                    "assets/audio/bgm/title.wav"
+                ],
+                "type": "audio",
+                "key": "title"
+            },
+            {
                 "url": "assets/other/wall.png",
                 "type": "image",
                 "key": "wall"
+            },
+            {
+                "url": [
+                    "assets/audio/sfx/wallCollision.mp3"
+                ],
+                "type": "audio",
+                "key": "wallCollision"
             }
         ]
     },

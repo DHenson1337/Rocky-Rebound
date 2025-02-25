@@ -19,144 +19,163 @@ import StopSceneActionScript from "../scriptnodes/scene/StopSceneActionScript.js
 /* END-USER-IMPORTS */
 
 export default class Level extends Phaser.Scene {
+  constructor() {
+    super("Level");
 
-	constructor() {
-		super("Level");
-
-		/* START-USER-CTR-CODE */
+    /* START-USER-CTR-CODE */
     // Write your code here.
     /* END-USER-CTR-CODE */
-	}
+  }
 
-	/** @returns {void} */
-	editorCreate() {
+  /** @returns {void} */
+  editorCreate() {
+    // leftKeyboard_key
+    const leftKeyboard_key = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.LEFT
+    );
 
-		// leftKeyboard_key
-		const leftKeyboard_key = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+    // rightKeyboard_key
+    const rightKeyboard_key = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.RIGHT
+    );
 
-		// rightKeyboard_key
-		const rightKeyboard_key = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+    // levelLayer
+    const levelLayer = this.add.layer();
+    levelLayer.blendMode = Phaser.BlendModes.SKIP_CHECK;
 
-		// levelLayer
-		const levelLayer = this.add.layer();
-		levelLayer.blendMode = Phaser.BlendModes.SKIP_CHECK;
+    // background1Prefab
+    const background1Prefab = new Background1Prefab(this, 0, 0);
+    levelLayer.add(background1Prefab);
 
-		// background1Prefab
-		const background1Prefab = new Background1Prefab(this, 0, 0);
-		levelLayer.add(background1Prefab);
+    // background2Prefab
+    const background2Prefab = new Background2Prefab(this, 0, 0);
+    levelLayer.add(background2Prefab);
 
-		// background2Prefab
-		const background2Prefab = new Background2Prefab(this, 0, 0);
-		levelLayer.add(background2Prefab);
+    // background3Prefab
+    const background3Prefab = new Background3Prefab(this, 0, 0);
+    levelLayer.add(background3Prefab);
 
-		// background3Prefab
-		const background3Prefab = new Background3Prefab(this, 0, 0);
-		levelLayer.add(background3Prefab);
+    // background4Prefab
+    const background4Prefab = new Background4Prefab(this, 0, 0);
+    levelLayer.add(background4Prefab);
 
-		// background4Prefab
-		const background4Prefab = new Background4Prefab(this, 0, 0);
-		levelLayer.add(background4Prefab);
+    // leftWallTileSprite
+    const leftWallTileSprite = new WallPrefab(this, 0, 0);
+    levelLayer.add(leftWallTileSprite);
 
-		// leftWallTileSprite
-		const leftWallTileSprite = new WallPrefab(this, 0, 0);
-		levelLayer.add(leftWallTileSprite);
+    // rightWallTileSprite
+    const rightWallTileSprite = new WallPrefab(this, 576, 0);
+    rightWallTileSprite.flipX = true;
+    rightWallTileSprite.flipY = false;
+    levelLayer.add(rightWallTileSprite);
 
-		// rightWallTileSprite
-		const rightWallTileSprite = new WallPrefab(this, 576, 0);
-		rightWallTileSprite.flipX = true;
-		rightWallTileSprite.flipY = false;
-		levelLayer.add(rightWallTileSprite);
+    // playerLayer
+    const playerLayer = this.add.layer();
+    playerLayer.blendMode = Phaser.BlendModes.SKIP_CHECK;
 
-		// playerLayer
-		const playerLayer = this.add.layer();
-		playerLayer.blendMode = Phaser.BlendModes.SKIP_CHECK;
+    // player
+    const player = new PlayerPrefab(this, 320, -164);
+    playerLayer.add(player);
 
-		// player
-		const player = new PlayerPrefab(this, 320, -164);
-		playerLayer.add(player);
+    // platformGroupPrefab
+    const platformGroupPrefab = new PlatformGroupPrefab(this);
+    this.add.existing(platformGroupPrefab);
 
-		// platformGroupPrefab
-		const platformGroupPrefab = new PlatformGroupPrefab(this);
-		this.add.existing(platformGroupPrefab);
+    // onAwakeActionScript
+    const onAwakeActionScript = new OnAwakeActionScript(this);
 
-		// onAwakeActionScript
-		const onAwakeActionScript = new OnAwakeActionScript(this);
+    // fadeEffectCameraActionScript_1
+    const fadeEffectCameraActionScript_1 = new FadeEffectCameraActionScript(
+      onAwakeActionScript
+    );
 
-		// fadeEffectCameraActionScript_1
-		const fadeEffectCameraActionScript_1 = new FadeEffectCameraActionScript(onAwakeActionScript);
+    // launchSceneActionScript
+    const launchSceneActionScript = new LaunchSceneActionScript(
+      fadeEffectCameraActionScript_1
+    );
 
-		// launchSceneActionScript
-		const launchSceneActionScript = new LaunchSceneActionScript(fadeEffectCameraActionScript_1);
+    // timeEventActionScriptForSceneTransition
+    const timeEventActionScriptForSceneTransition = new TimeEventActionScript(
+      this
+    );
 
-		// timeEventActionScriptForSceneTransition
-		const timeEventActionScriptForSceneTransition = new TimeEventActionScript(this);
+    // fadeEffectCameraActionScript
+    const fadeEffectCameraActionScript = new FadeEffectCameraActionScript(
+      timeEventActionScriptForSceneTransition
+    );
 
-		// fadeEffectCameraActionScript
-		const fadeEffectCameraActionScript = new FadeEffectCameraActionScript(timeEventActionScriptForSceneTransition);
+    // startSceneActionScript
+    const startSceneActionScript = new StartSceneActionScript(
+      fadeEffectCameraActionScript
+    );
 
-		// startSceneActionScript
-		const startSceneActionScript = new StartSceneActionScript(fadeEffectCameraActionScript);
+    // stopSceneActionScript
+    const stopSceneActionScript = new StopSceneActionScript(
+      timeEventActionScriptForSceneTransition
+    );
 
-		// stopSceneActionScript
-		const stopSceneActionScript = new StopSceneActionScript(timeEventActionScriptForSceneTransition);
+    // lists
+    const movingLevelTileSprites = [
+      rightWallTileSprite,
+      leftWallTileSprite,
+      background4Prefab,
+    ];
+    const walls = [rightWallTileSprite, leftWallTileSprite];
 
-		// lists
-		const movingLevelTileSprites = [rightWallTileSprite, leftWallTileSprite, background4Prefab];
-		const walls = [rightWallTileSprite, leftWallTileSprite];
+    // playerWithPlatformsCollider
+    this.physics.add.collider(player, platformGroupPrefab.group);
 
-		// playerWithPlatformsCollider
-		this.physics.add.collider(player, platformGroupPrefab.group);
+    // playerWithWallsCollider
+    this.physics.add.collider(player, walls);
 
-		// playerWithWallsCollider
-		this.physics.add.collider(player, walls);
+    // rightWallTileSprite (prefab fields)
+    rightWallTileSprite.tileOffsetY = -250;
 
-		// rightWallTileSprite (prefab fields)
-		rightWallTileSprite.tileOffsetY = -250;
+    // fadeEffectCameraActionScript_1 (prefab fields)
+    fadeEffectCameraActionScript_1.duration = 500;
+    fadeEffectCameraActionScript_1.fadeEvent = "camerafadeincomplete";
 
-		// fadeEffectCameraActionScript_1 (prefab fields)
-		fadeEffectCameraActionScript_1.duration = 500;
-		fadeEffectCameraActionScript_1.fadeEvent = "camerafadeincomplete";
+    // launchSceneActionScript (prefab fields)
+    launchSceneActionScript.sceneKey = "UI";
 
-		// launchSceneActionScript (prefab fields)
-		launchSceneActionScript.sceneKey = "UI";
+    // fadeEffectCameraActionScript (prefab fields)
+    fadeEffectCameraActionScript.duration = 500;
+    fadeEffectCameraActionScript.fadeEvent = "camerafadeoutcomplete";
 
-		// fadeEffectCameraActionScript (prefab fields)
-		fadeEffectCameraActionScript.duration = 500;
-		fadeEffectCameraActionScript.fadeEvent = "camerafadeoutcomplete";
+    // startSceneActionScript (prefab fields)
+    startSceneActionScript.sceneKey = "GameOver";
 
-		// startSceneActionScript (prefab fields)
-		startSceneActionScript.sceneKey = "GameOver";
+    // stopSceneActionScript (prefab fields)
+    stopSceneActionScript.sceneKey = "UI";
 
-		// stopSceneActionScript (prefab fields)
-		stopSceneActionScript.sceneKey = "UI";
+    this.player = player;
+    this.platformGroupPrefab = platformGroupPrefab;
+    this.timeEventActionScriptForSceneTransition =
+      timeEventActionScriptForSceneTransition;
+    this.leftKeyboard_key = leftKeyboard_key;
+    this.rightKeyboard_key = rightKeyboard_key;
+    this.movingLevelTileSprites = movingLevelTileSprites;
+    this.walls = walls;
 
-		this.player = player;
-		this.platformGroupPrefab = platformGroupPrefab;
-		this.timeEventActionScriptForSceneTransition = timeEventActionScriptForSceneTransition;
-		this.leftKeyboard_key = leftKeyboard_key;
-		this.rightKeyboard_key = rightKeyboard_key;
-		this.movingLevelTileSprites = movingLevelTileSprites;
-		this.walls = walls;
+    this.events.emit("scene-awake");
+  }
 
-		this.events.emit("scene-awake");
-	}
+  /** @type {PlayerPrefab} */
+  player;
+  /** @type {PlatformGroupPrefab} */
+  platformGroupPrefab;
+  /** @type {TimeEventActionScript} */
+  timeEventActionScriptForSceneTransition;
+  /** @type {Phaser.Input.Keyboard.Key} */
+  leftKeyboard_key;
+  /** @type {Phaser.Input.Keyboard.Key} */
+  rightKeyboard_key;
+  /** @type {Array<WallPrefab|Background4Prefab>} */
+  movingLevelTileSprites;
+  /** @type {WallPrefab[]} */
+  walls;
 
-	/** @type {PlayerPrefab} */
-	player;
-	/** @type {PlatformGroupPrefab} */
-	platformGroupPrefab;
-	/** @type {TimeEventActionScript} */
-	timeEventActionScriptForSceneTransition;
-	/** @type {Phaser.Input.Keyboard.Key} */
-	leftKeyboard_key;
-	/** @type {Phaser.Input.Keyboard.Key} */
-	rightKeyboard_key;
-	/** @type {Array<WallPrefab|Background4Prefab>} */
-	movingLevelTileSprites;
-	/** @type {WallPrefab[]} */
-	walls;
-
-	/* START-USER-CODE */
+  /* START-USER-CODE */
   firstJumpMade = false;
   isGameOver = false;
   currentScore = 0;
@@ -175,6 +194,12 @@ export default class Level extends Phaser.Scene {
     this.maxHeight = 0;
     this.startingMaxHeight = 0;
     this.level = 0;
+
+    // Start BGM
+    const audioManager = this.game.registry.get("audioManager");
+    if (audioManager) {
+      audioManager.playBGM("level");
+    }
 
     // Optional: Add debug visualization for jump height
     if (this.physics.config.debug) {
@@ -200,11 +225,23 @@ export default class Level extends Phaser.Scene {
       //Play jump animation
       this.player.play("playerJump");
 
+      // Play jump sound
+      const audioManager = this.game.registry.get("audioManager");
+      if (audioManager) {
+        audioManager.playSFX("jump");
+      }
+
       //Checks if jump animation completed then plays spin animation
       this.player.once(
         Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + "playerJump",
         () => {
           this.player.play("playerSpin");
+
+          // Play spin sound
+          const audioManager = this.game.registry.get("audioManager");
+          if (audioManager) {
+            audioManager.playSFX("spin");
+          }
         }
       );
       this.player.setVelocityY(-500);
@@ -287,6 +324,13 @@ export default class Level extends Phaser.Scene {
       this.platformGroupPrefab.bottomMostPlatformYPosition + 50
     ) {
       this.isGameOver = true;
+
+      // Play fall sound
+      const audioManager = this.game.registry.get("audioManager");
+      if (audioManager) {
+        audioManager.playSFX("fall");
+        audioManager.stopBGM();
+      }
 
       this.player.setVelocityY(15);
 
