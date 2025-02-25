@@ -182,6 +182,28 @@ export default class Level extends Phaser.Scene {
   maxHeight = 0;
   startingMaxHeight = 0;
   level = 0;
+
+  // Difficulty settings with tighter jump parameters
+  baseGravity = 350;
+  baseJumpVelocity = -716;
+  currentGravity = 350;
+  currentJumpVelocity = -716;
+
+  // Carefully balanced difficulty thresholds
+  // Gradual increase from 200-1000, then steeper from 1000-2000
+  // Jump multipliers create progressively tighter jumps (less excess height)
+  difficultyThresholds = [
+    { score: 200, gravityMultiplier: 1.1, jumpMultiplier: 0.995 }, // 90.0% of base height
+    { score: 400, gravityMultiplier: 1.2, jumpMultiplier: 1.0247 }, // 87.5% of base height
+    { score: 600, gravityMultiplier: 1.3, jumpMultiplier: 1.0512 }, // 85.0% of base height
+    { score: 800, gravityMultiplier: 1.4, jumpMultiplier: 1.0747 }, // 82.5% of base height
+    { score: 1000, gravityMultiplier: 1.5, jumpMultiplier: 1.0954 }, // 80.0% of base height
+    { score: 1200, gravityMultiplier: 1.7, jumpMultiplier: 1.1515 }, // 78.0% of base height
+    { score: 1400, gravityMultiplier: 1.95, jumpMultiplier: 1.2174 }, // 76.0% of base height
+    { score: 1600, gravityMultiplier: 2.25, jumpMultiplier: 1.2903 }, // 74.0% of base height
+    { score: 1800, gravityMultiplier: 2.6, jumpMultiplier: 1.3682 }, // 72.0% of base height
+    { score: 2000, gravityMultiplier: 3.0, jumpMultiplier: 1.4491 }, // 70.0% of base height
+  ];
   // Write more your code here
 
   create() {
@@ -194,6 +216,11 @@ export default class Level extends Phaser.Scene {
     this.maxHeight = 0;
     this.startingMaxHeight = 0;
     this.level = 0;
+
+    // Initialize physics values
+    this.currentGravity = this.baseGravity;
+    this.currentJumpVelocity = this.baseJumpVelocity;
+    this.player.body.setGravityY(this.currentGravity);
 
     // Start BGM
     const audioManager = this.game.registry.get("audioManager");
@@ -244,7 +271,7 @@ export default class Level extends Phaser.Scene {
           }
         }
       );
-      this.player.setVelocityY(-500);
+      this.player.setVelocityY(this.currentJumpVelocity);
       if (!this.firstJumpMade) {
         this.firstJumpMade = true;
         this.startingMaxHeight = distance; //Initial starting max height for score
@@ -307,15 +334,60 @@ export default class Level extends Phaser.Scene {
     // Score Tracker & difficulty setter
     if (distance > this.maxHeight && this.firstJumpMade) {
       this.maxHeight = distance;
-      this.currentScore = Math.floor(
+      const newScore = Math.floor(
         (this.maxHeight - this.startingMaxHeight) / 10
       );
-      this.scene.get("UI").updateScoreText(this.currentScore);
 
-      // Turn on moving platforms
-      if (this.level === 0 && this.currentScore > 200) {
-        this.platformGroupPrefab.enableMovingPlatforms = true;
+      // Check if we've reached a new difficulty threshold
+      if (newScore > this.currentScore) {
+        const previousLevel = this.level;
+
+        // Check all thresholds to see if we've crossed any
+        this.difficultyThresholds.forEach((threshold, index) => {
+          if (
+            newScore >= threshold.score &&
+            this.currentScore < threshold.score
+          ) {
+            this.level = index + 1;
+
+            // Apply new physics settings
+            this.currentGravity =
+              this.baseGravity * threshold.gravityMultiplier;
+            this.currentJumpVelocity =
+              this.baseJumpVelocity * threshold.jumpMultiplier;
+            this.player.body.setGravityY(this.currentGravity);
+
+            // Visual feedback for difficulty increase
+            // this.cameras.main.flash(500, 255, 255, 255, 0.3);
+
+            // Play sound effect if available (Todo find a nice sound)
+            // const audioManager = this.game.registry.get("audioManager");
+            // if (audioManager) {
+            //   audioManager.playSFX("jump"); // Use an appropriate sound for level up
+            // }
+
+            console.log(`Difficulty increased to level ${this.level}: 
+          Gravity: ${this.currentGravity.toFixed(0)}, 
+          Jump: ${this.currentJumpVelocity.toFixed(0)}`);
+          }
+        });
+
+        // Turn on moving platforms at level 1 (200 points)
+        if (previousLevel === 0 && this.level >= 1) {
+          this.platformGroupPrefab.enableMovingPlatforms = true;
+        }
+
+        // Adjust platform spacing if we cross specific thresholds
+        if (this.level >= 3) {
+          // 600+ points
+          // Tell PlatformGroupPrefab to use tighter spacing for higher difficulty
+          this.platformGroupPrefab.adjustSpacingForDifficulty(this.level);
+        }
       }
+
+      // Update the score
+      this.currentScore = newScore;
+      this.scene.get("UI").updateScoreText(this.currentScore);
     }
 
     //Condition for Game Over

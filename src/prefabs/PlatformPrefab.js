@@ -3,6 +3,7 @@
 /* START OF COMPILED CODE */
 
 /* START-USER-IMPORTS */
+import PlatformGroupPrefab from "./PlatformGroupPrefab.js";
 /* END-USER-IMPORTS */
 
 export default class PlatformPrefab extends Phaser.Physics.Arcade.Image {
@@ -46,16 +47,49 @@ export default class PlatformPrefab extends Phaser.Physics.Arcade.Image {
     if (!this.enablePlatformMovement) {
       return;
     }
+
+    // Get speed from PlatformGroupPrefab if possible
+    const platformGroup = this.scene.children
+      .getChildren()
+      .find(
+        (child) =>
+          child instanceof Phaser.GameObjects.Layer &&
+          child.platformSpeed !== undefined
+      );
+
+    // Use the platform group speed or fallback to default
+    const speed = platformGroup
+      ? platformGroup.platformSpeed
+      : this.horizontalVelocity;
+
     const velocity = this.body.velocity;
     if (this.x < this.minXPosition) {
-      velocity.x = this.horizontalVelocity;
+      velocity.x = speed;
     } else if (this.x > this.maxXPosition) {
-      velocity.x = this.horizontalVelocity * -1;
+      velocity.x = -speed;
     }
   }
 
   startPlatformMovement() {
-    this.body.velocity.x = this.horizontalVelocity;
+    // Get speed from PlatformGroupPrefab if possible
+    const platformGroup = this.scene.children
+      .getChildren()
+      .find(
+        (child) =>
+          child instanceof Phaser.GameObjects.Layer &&
+          child.platformSpeed !== undefined
+      );
+
+    // Use the platform group speed or fallback to default
+    const speed = platformGroup
+      ? platformGroup.platformSpeed
+      : this.horizontalVelocity;
+
+    // Set a random direction
+    const direction = Phaser.Math.RND.pick([-1, 1]);
+
+    // Apply velocity
+    this.body.velocity.x = speed * direction;
     this.enablePlatformMovement = true;
   }
 

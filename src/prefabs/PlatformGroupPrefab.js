@@ -80,7 +80,11 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
   /** @type {number} */
   bottomMostPlatformYPosition;
   /** @type {boolean} */
-  enableMovingPlatforms = true;
+  enableMovingPlatforms = false;
+  /** @type {number} */
+  platformSpeed = 30;
+  /** @type {number} */
+  movingPlatformChance = 0.5;
 
   update() {
     // Get current camera scroll position
@@ -131,13 +135,87 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
 
       // Enable moving platforms
       if (this.enableMovingPlatforms) {
-        if (Phaser.Math.RND.between(0, 1) === 1) {
+        // Use probability for moving platforms
+        if (Math.random() < this.movingPlatformChance) {
           platform.startPlatformMovement();
         } else {
           platform.stopPlatformMovement();
         }
       }
     });
+  }
+
+  /**
+   * Adjusts platform spacing based on difficulty level
+   * @param {number} difficultyLevel - Current difficulty level (0-10)
+   */
+  adjustSpacingForDifficulty(difficultyLevel) {
+    // Adjust platform spacing and movement based on difficulty
+    switch (difficultyLevel) {
+      case 1: // 200 points
+        this.platformSpeed = 50;
+        this.movingPlatformChance = 0.55;
+        this.MIN_X_GAP = 90;
+        break;
+      case 2: // 400 points
+        this.platformSpeed = 68;
+        this.movingPlatformChance = 0.61;
+        this.MIN_X_GAP = 86;
+        break;
+      case 3: // 600 points
+        this.platformSpeed = 85;
+        this.movingPlatformChance = 0.68;
+        this.MIN_X_GAP = 83;
+        break;
+      case 4: // 800 points
+        this.platformSpeed = 103;
+        this.movingPlatformChance = 0.74;
+        this.MIN_X_GAP = 79;
+        break;
+      case 5: // 1000 points
+        this.platformSpeed = 120;
+        this.movingPlatformChance = 0.8;
+        this.MIN_X_GAP = 75;
+        break;
+      case 6: // 1200 points - Steeper difficulty increase begins
+        this.platformSpeed = 136;
+        this.movingPlatformChance = 0.84;
+        this.MIN_X_GAP = 71;
+        break;
+      case 7: // 1400 points
+        this.platformSpeed = 152;
+        this.movingPlatformChance = 0.88;
+        this.MIN_X_GAP = 67;
+        break;
+      case 8: // 1600 points
+        this.platformSpeed = 168;
+        this.movingPlatformChance = 0.92;
+        this.MIN_X_GAP = 63;
+        break;
+      case 9: // 1800 points
+        this.platformSpeed = 184;
+        this.movingPlatformChance = 0.96;
+        this.MIN_X_GAP = 59;
+        break;
+      case 10: // 2000 points - Maximum difficulty
+        this.platformSpeed = 200;
+        this.movingPlatformChance = 1.0; // All platforms move
+        this.MIN_X_GAP = 55;
+        break;
+      default:
+        // Default values
+        this.platformSpeed = 30;
+        this.movingPlatformChance = 0.5;
+        this.MIN_X_GAP = 100;
+    }
+
+    console.log(
+      `Difficulty Level ${difficultyLevel}: Speed=${
+        this.platformSpeed
+      }, Moving=${(this.movingPlatformChance * 100).toFixed(0)}%, Gap=${
+        this.MIN_X_GAP
+      }px`
+    );
   }
 
   /* END-USER-CODE */
