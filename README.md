@@ -1,6 +1,6 @@
 # Upheaval - A Vertical Platformer Game
 
-![Upheaval Game Screenshot](screenshot.png)
+![Upheaval Game Screenshot]()
 
 Upheaval is a challenging vertical platformer built with Phaser 3, where players bounce between platforms trying to reach ever-higher scores while avoiding falling to their doom.
 
@@ -19,33 +19,36 @@ Play Upheaval now at: [https://upheaval-game.netlify.app](https://upheaval-game.
 
 The game features a comprehensive difficulty system with 10 levels:
 
-| Score | Gravity | Platform Speed | Moving Platforms | Features |
-|-------|---------|---------------|-----------------|----------|
-| 200   | +10%    | 50            | 55%             | Basic difficulty |
-| 400   | +20%    | 68            | 61%             | Faster gameplay |
-| 600   | +30%    | 85            | 68%             | More moving platforms |
-| 800   | +40%    | 103           | 74%             | Reduced platform spacing |
-| 1000  | +50%    | 120           | 80%             | Significant challenge begins |
-| 1200  | +70%    | 136           | 84%             | Steeper difficulty curve |
-| 1400  | +95%    | 152           | 88%             | Precision jumping required |
-| 1600  | +125%   | 168           | 92%             | Very challenging |
-| 1800  | +160%   | 184           | 96%             | Extreme precision needed |
-| 2000  | +200%   | 200           | 100%            | Maximum difficulty |
+| Score | Gravity | Platform Speed | Moving Platforms | Features                     |
+| ----- | ------- | -------------- | ---------------- | ---------------------------- |
+| 200   | +10%    | 50             | 55%              | Basic difficulty             |
+| 400   | +20%    | 68             | 61%              | Faster gameplay              |
+| 600   | +30%    | 85             | 68%              | More moving platforms        |
+| 800   | +40%    | 103            | 74%              | Reduced platform spacing     |
+| 1000  | +50%    | 120            | 80%              | Significant challenge begins |
+| 1200  | +70%    | 136            | 84%              | Steeper difficulty curve     |
+| 1400  | +95%    | 152            | 88%              | Precision jumping required   |
+| 1600  | +125%   | 168            | 92%              | Very challenging             |
+| 1800  | +160%   | 184            | 96%              | Extreme precision needed     |
+| 2000  | +200%   | 200            | 100%             | Maximum difficulty           |
 
 ## 🔧 Development
 
 This game was built using:
+
 - [Phaser 3](https://phaser.io/phaser3) - HTML5 Game Framework
 - [Phaser Editor v4](https://phasereditor2d.com/) - Visual game editor for Phaser
 
 ### Local Development
 
 1. Clone the repository:
+
 ```
 git clone https://github.com/your-username/upheaval.git
 ```
 
 2. Navigate to the project directory:
+
 ```
 cd upheaval
 ```
@@ -73,6 +76,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ### Game Architecture
 
 The game consists of several key scenes:
+
 - **Preload**: Handles asset loading
 - **Title**: Displays the intro animation
 - **Level**: Main gameplay
@@ -82,6 +86,7 @@ The game consists of several key scenes:
 ### Progressive Difficulty System
 
 Upheaval features a sophisticated difficulty progression system:
+
 - Gravity increases with score, making the game faster and more challenging
 - Jump mechanics are carefully balanced to maintain playability
 - Platform movement speed and probability increase with difficulty
@@ -90,6 +95,7 @@ Upheaval features a sophisticated difficulty progression system:
 ### Audio System
 
 The game includes a comprehensive audio system:
+
 - Background music for different scenes
 - Sound effects for player actions (jumping, bouncing, collisions)
 - Audio cues for difficulty transitions
@@ -100,3 +106,6 @@ The game includes a comprehensive audio system:
 - All sound and music creators for their excellent work
 - The Phaser community for their support and resources
 
+## Special Thanks to Scott Westover for the tutorial
+
+Phaser Editor v4 Tutorial: Build a Metroid-Inspired Infinite Jumper!

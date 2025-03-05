@@ -197,7 +197,7 @@ export default class Level extends Phaser.Scene {
     { score: 400, gravityMultiplier: 1.2, jumpMultiplier: 1.0247 }, // 87.5% of base height
     { score: 600, gravityMultiplier: 1.3, jumpMultiplier: 1.0512 }, // 85.0% of base height
     { score: 800, gravityMultiplier: 1.4, jumpMultiplier: 1.0747 }, // 82.5% of base height
-    { score: 1000, gravityMultiplier: 1.5, jumpMultiplier: 1.0954 }, // 80.0% of base height
+    { score: 1000, gravityMultiplier: 1.5, jumpMultiplier: 1.1254 }, // 80.0% of base height
     { score: 1200, gravityMultiplier: 1.7, jumpMultiplier: 1.1515 }, // 78.0% of base height
     { score: 1400, gravityMultiplier: 1.95, jumpMultiplier: 1.2174 }, // 76.0% of base height
     { score: 1600, gravityMultiplier: 2.25, jumpMultiplier: 1.2903 }, // 74.0% of base height
